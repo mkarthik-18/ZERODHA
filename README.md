@@ -1,103 +1,160 @@
-# Zerodha - Stock Trading Platform
+# ZERODHA - Stock Trading Platform
 
-A full-stack MERN (MongoDB, Express, React, Node.js) stock trading platform inspired by Zerodha.
+A full-stack **MERN** (MongoDB, Express, React, Node.js) stock trading platform inspired by Zerodha.
 
-## Project Structure
+## 🚀 Features
+
+- **Landing Page** - Product showcase built with React + Bootstrap 5
+- **Trading Dashboard** - Interactive holdings, positions, orders & charts (MUI + Chart.js)
+- **RESTful API** - Node.js + Express backend with MongoDB persistence
+- **Responsive Design** - Works across desktop and mobile
+- **Environment-based Config** - Sensitive data kept out of version control
+
+## 📁 Project Structure
 
 ```
-├── backend/          # Node.js + Express + MongoDB API
-├── frontend/         # React landing page (public site)
-└── dashboard/        # React trading dashboard
+ZERODHA/
+├── backend/                # Node.js + Express + MongoDB API (port 3002)
+│   ├── model/              # Mongoose models
+│   ├── schemas/            # Database schemas
+│   ├── index.js            # Main server entry point
+│   ├── .env.example        # Template for env vars (safe to commit)
+│   └── .env                # YOUR secrets (git-ignored)
+├── frontend/               # React landing page (port 3000)
+│   ├── public/media/       # Images & static assets
+│   └── src/landing_page/   # Pages & components
+├── dashboard/              # React trading dashboard (port 3001)
+│   ├── public/
+│   └── src/components/     # Dashboard widgets & charts
+├── .gitignore
+├── LICENSE
+└── README.md
 ```
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Frontend:** React 18, React Router
-- **Dashboard:** React 18, Material-UI, Chart.js, Axios
-- **Backend:** Node.js, Express, MongoDB, Mongoose, Passport.js
-- **Authentication:** Passport Local Strategy
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 18, React Router, Bootstrap 5 |
+| Dashboard | React 18, Material-UI, Chart.js, Axios |
+| Backend | Node.js, Express, Passport.js |
+| Database | MongoDB Atlas / MongoDB Community |
+| ODM | Mongoose |
 
-## Getting Started
+## ⚙️ Setup Instructions
 
 ### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB
+
+- Node.js v14 or higher
 - npm or yarn
+- MongoDB (local install or a free MongoDB Atlas cluster)
 
-### Installation
+### 1. Clone the Repository
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/madhavabhotlakarthik/ZERODHA.git
+git clone https://github.com/mkarthik-18/ZERODHA.git
 cd ZERODHA
 ```
 
-2. Install dependencies for all services:
+### 2. Configure the Backend
 
-**Backend:**
 ```bash
 cd backend
 npm install
+
+# Create your env file from the template
+cp .env.example .env
+# Now edit backend/.env and paste in your MongoDB connection string
 ```
 
-**Frontend:**
+⚠️ **Important:** `.env` is git-ignored on purpose. Never commit it — it contains your database password.
+
+### 3. Start the Backend (do this first)
+
+```bash
+npm start
+```
+
+You should see `App started!` followed by `DB started!`. If you see `bad auth`, your MongoDB password in `.env` is wrong.
+
+Backend runs on **http://localhost:3002**
+
+### 4. Start the Frontend
+
 ```bash
 cd frontend
 npm install
+npm start
 ```
 
-**Dashboard:**
+Frontend runs on **http://localhost:3000**
+
+### 5. Start the Dashboard
+
 ```bash
 cd dashboard
 npm install
-```
-
-3. Set up environment variables:
-Create a `.env` file in the backend directory with your MongoDB connection string and other config.
-
-4. Run the applications:
-
-**Backend (Port 3001):**
-```bash
-cd backend
 npm start
 ```
 
-**Frontend (Port 3000):**
-```bash
-cd frontend
-npm start
+Dashboard runs on **http://localhost:3001** — it calls the backend at `localhost:3002`, so the backend must be running first.
+
+## 🔧 Environment Variables
+
+`backend/.env` (create from `backend/.env.example`):
+
+```env
+# MongoDB connection string
+MONGO_URL=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/zerodha
+
+# Server port
+PORT=3002
 ```
 
-**Dashboard (Port 3002):**
+Note the variable name is **`MONGO_URL`** (not `MONGO_URI`) — that's what `index.js` reads.
+
+### Getting MongoDB Atlas (free, forever)
+
+1. Sign up at [mongodb.com/atlas](https://www.mongodb.com/atlas) — no credit card
+2. Create a cluster and choose the **M0 Sandbox** free tier
+3. **Security → Database Access** → add a user (save your password!)
+4. **Security → Network Access** → allow `0.0.0.0/0` so your machine can connect
+5. Copy the connection string into `backend/.env`
+
+### Using Local MongoDB instead
+
 ```bash
-cd dashboard
-npm start
+brew tap mongodb/brew
+brew install mongodb-community
+brew services start mongodb-community
 ```
 
-## Features
+Then use: `MONGO_URL=mongodb://127.0.0.1:27017/zerodha`
 
-- Landing page with product information
-- Pricing page
-- About page
-- Support section
-- User signup
-- Trading dashboard with:
-  - Holdings tracking
-  - Positions management
-  - Order history
-  - Funds management
-  - Interactive charts
+## 📊 API Endpoints
 
-## Author
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/allHoldings` | Fetch all holdings |
+| `GET` | `/allPositions` | Fetch all positions |
+| `POST` | `/newOrder` | Create a new order (body: `name`, `qty`, `price`, `mode`) |
 
-**Madhava Bhotla Karthik**
+## 🔒 Security Notes
 
-## License
+- `.env` is excluded via `.gitignore` — **never** commit credentials
+- `.env.example` is a placeholder template safe for public repos
+- Rotate your MongoDB password regularly
+- Keep secrets in environment variables, not in source code
 
-ISC
+## 📜 License
 
-## Acknowledgments
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
+## 👤 Author
+
+**Madhava Bhotla Karthik** — [@mkarthik-18](https://github.com/mkarthik-18)
+
+## 🙏 Acknowledgments
+
+- UI and design inspired by [Zerodha](https://zerodha.com)
 - Built as a full-stack MERN learning project
-- UI inspired by Zerodha's design

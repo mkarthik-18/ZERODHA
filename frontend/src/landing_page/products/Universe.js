@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Universe() {
+  const navigate = useNavigate();
+
   return (
     <div className="container mt-5">
       <div className="row text-center">
@@ -11,32 +14,33 @@ function Universe() {
         </p>
 
         <div className="col-4 p-3 mt-5">
-          <img src="media/images/smallcaseLogo.png" />
+          <img src="media/images/smallcaseLogo.png" alt="Smallcase" />
           <p className="text-small text-muted">Thematic investment platform</p>
         </div>
         <div className="col-4 p-3 mt-5">
-          <img src="media/images/smallcaseLogo.png" />
-          <p className="text-small text-muted">Thematic investment platform</p>
+          <img src="media/images/dittoLogo.png" alt="Ditto" />
+          <p className="text-small text-muted">Stock market education</p>
         </div>
         <div className="col-4 p-3 mt-5">
-          <img src="media/images/smallcaseLogo.png" />
-          <p className="text-small text-muted">Thematic investment platform</p>
+          <img src="media/images/streakLogo.png" alt="Streak" />
+          <p className="text-small text-muted">Learn stock trading</p>
         </div>
         <div className="col-4 p-3 mt-5">
-          <img src="media/images/smallcaseLogo.png" />
-          <p className="text-small text-muted">Thematic investment platform</p>
+          <img src="media/images/sensibullLogo.svg" alt="Sensibull" />
+          <p className="text-small text-muted">Options trading platform</p>
         </div>
         <div className="col-4 p-3 mt-5">
-          <img src="media/images/smallcaseLogo.png" />
-          <p className="text-small text-muted">Thematic investment platform</p>
+          <img src="media/images/goldenpiLogo.png" alt="Goldenpi" />
+          <p className="text-small text-muted">Commodity trading</p>
         </div>
         <div className="col-4 p-3 mt-5">
-          <img src="media/images/smallcaseLogo.png" />
-          <p className="text-small text-muted">Thematic investment platform</p>
+          <img src="media/images/zerodhaFundhouse.png" alt="Fundhouse" />
+          <p className="text-small text-muted">Mutual fund investment</p>
         </div>
         <button
           className="p-2 btn btn-primary fs-5 mb-5"
           style={{ width: "20%", margin: "0 auto" }}
+          onClick={() => navigate("/signup")}
         >
           Signup Now
         </button>
